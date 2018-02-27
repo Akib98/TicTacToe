@@ -8,11 +8,18 @@ public class GridSpace : MonoBehaviour
 
     public Button button;
     public Text buttonText;
-    public string playerSide;
+    private GameController gameController;
+
+    public void SetGameControllerReference(GameController controller)
+    {
+        this.gameController = controller;
+    }
 
     public void SetSpace()
     {
-        buttonText.text = playerSide;
+        buttonText.text = gameController.GetPlayerSide();
         button.interactable = false;
+
+        gameController.EndTurn();
     }
 }
