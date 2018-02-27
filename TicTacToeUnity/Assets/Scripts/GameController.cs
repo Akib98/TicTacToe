@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
 
     public Text[] buttonList;
     private string playerSide;
+    public GameObject gameOverPanel;
+    public Text gameOverText;
 
     void SetGameControllerReferenceOnButtons()
     {
@@ -19,6 +21,7 @@ public class GameController : MonoBehaviour {
     {
         SetGameControllerReferenceOnButtons();
         playerSide = "X";
+        gameOverPanel.SetActive(false);
     }
 
     public string GetPlayerSide()
@@ -68,11 +71,14 @@ public class GameController : MonoBehaviour {
     {
         playerSide = (playerSide == "X") ? "O" : "X";
     }
+
     void GameOver()
     {
         for (int i = 0; i < buttonList.Length; i++)
         {
             buttonList[i].GetComponentInParent<Button>().interactable = false;
         }
+        gameOverPanel.SetActive(true);
+        gameOverText.text = playerSide + " Wins!";
     }
 }
