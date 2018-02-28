@@ -92,12 +92,8 @@ public class GameController : MonoBehaviour {
         {
             SetGameOverText(winningPlayer + " Wins!");
         }
+        SetBoardInteractable(false);
         restartButton.SetActive(true);
-    }
-
-    void CheckWinLossCondition()
-    {
-        
     }
 
     void SetGameOverText(string value)
