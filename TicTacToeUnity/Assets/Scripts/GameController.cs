@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
             buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReference(this);
         }
     }
+
     void Awake()
     {
         moveCount = 0;
@@ -36,42 +37,7 @@ public class GameController : MonoBehaviour {
     public void EndTurn()
     {
         moveCount++;
-        
-        CheckWinLossCondition();
-        if (moveCount >= 9)
-        {
-            GameOver("draw");
-        }
-        ChangeSide();
-    }
 
-    void ChangeSide()
-    {
-        playerSide = (playerSide == "X") ? "O" : "X";
-    }
-
-    //void GameOver()
-    //{
-    //    SetBoardInteractable(false);
-    //    SetGameOverText(playerSide + " Wins!");
-    //    restartButton.SetActive(true);
-    //}
-
-    void GameOver(string winningPlayer)
-    {
-        if (winningPlayer == "draw")
-        {
-            SetGameOverText("It's a Draw!");
-        }
-        else
-        {
-            SetGameOverText(winningPlayer + " Wins!");
-        }
-        restartButton.SetActive(true);
-    }
-
-    void CheckWinLossCondition()
-    {
         if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
         {
             GameOver(playerSide);
@@ -104,6 +70,34 @@ public class GameController : MonoBehaviour {
         {
             GameOver(playerSide);
         }
+        else if (moveCount >= 9)
+        {
+            GameOver("draw");
+        }
+        ChangeSide();
+    }
+
+    void ChangeSide()
+    {
+        playerSide = (playerSide == "X") ? "O" : "X";
+    }
+
+    void GameOver(string winningPlayer)
+    {
+        if (winningPlayer == "draw")
+        {
+            SetGameOverText("It's a Draw!");
+        }
+        else
+        {
+            SetGameOverText(winningPlayer + " Wins!");
+        }
+        restartButton.SetActive(true);
+    }
+
+    void CheckWinLossCondition()
+    {
+        
     }
 
     void SetGameOverText(string value)
@@ -117,12 +111,12 @@ public class GameController : MonoBehaviour {
         playerSide = "X";
         moveCount = 0;
         gameOverPanel.SetActive(false);
+        restartButton.SetActive(false);
         SetBoardInteractable(true);
         for (int i = 0; i < buttonList.Length; i++)
         {
             buttonList[i].text = "";
         }
-        restartButton.SetActive(false);
     }
 
     void SetBoardInteractable(bool toggle)
